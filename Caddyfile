@@ -7,12 +7,20 @@
         path /v1/*
     }
     route @auth {
-        reverse_proxy docling:5001
+        reverse_proxy {
+            dynamic a docling 5001 {
+                refresh 5s
+            }
+        }
     }
     route @v1 {
         respond "Unauthorized" 401
     }
     route {
-        reverse_proxy docling:5001
+        reverse_proxy {
+            dynamic a docling 5001 {
+                refresh 5s
+            }
+        }
     }
 }
